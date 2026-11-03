@@ -1,11 +1,2961 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=https://htcb-12c7.github.io/htgov/">
-  <title>正在跳转...</title>
+<meta charset="UTF-8">
+
+<!-- 手机 / 平板 / 电脑自适应 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>HT STUDIO · 黑铁工作室</title>
+
+<style>
+/* =========================================================
+   HT STUDIO // SYSTEM BOOT INTERFACE
+   Local Runtime Diagnostics
+   No external libraries
+   No telemetry
+   No data transmission
+   ========================================================= */
+
+:root {
+    --gold: #d7b66a;
+    --gold-light: #f1dc9a;
+    --gold-dark: #795d2d;
+    --brown: #3a2415;
+    --brown-deep: #17100b;
+    --ink: #090806;
+    --green: #65d49a;
+    --cyan: #66d9ef;
+    --red: #e87575;
+    --purple: #b58cff;
+    --text: #e9d9b2;
+
+    --panel: rgba(34, 21, 13, .76);
+    --border: rgba(214, 174, 91, .30);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(142, 87, 24, .25), transparent 35%),
+        radial-gradient(circle at 80% 30%, rgba(67, 36, 100, .20), transparent 38%),
+        radial-gradient(circle at 50% 100%, rgba(105, 59, 25, .22), transparent 42%),
+        #080705;
+
+    color: var(--text);
+
+    font-family:
+        "Segoe UI",
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+}
+
+/* =========================================================
+   BACKGROUND
+   ========================================================= */
+
+#matrix {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.noise {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+
+    opacity: .10;
+
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.025) 0px,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+.vignette {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            transparent 35%,
+            rgba(0,0,0,.24) 70%,
+            rgba(0,0,0,.70) 100%
+        );
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.boot {
+    position: relative;
+    z-index: 5;
+
+    width: min(1180px, 92vw);
+    min-height: 100svh;
+
+    margin: auto;
+
+    display: grid;
+    place-items: center;
+
+    padding:
+        clamp(22px, 4vw, 50px)
+        0;
+}
+
+.shell {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns:
+        minmax(290px, .82fr)
+        minmax(420px, 1.18fr);
+
+    gap: clamp(24px, 4vw, 58px);
+
+    align-items: center;
+}
+
+/* =========================================================
+   LEFT SIDE
+   ========================================================= */
+
+.brand {
+    position: relative;
+
+    min-width: 0;
+}
+
+.eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 16px;
+
+    color: var(--gold);
+
+    font-size: clamp(10px, 1vw, 13px);
+    letter-spacing: .30em;
+
+    text-transform: uppercase;
+}
+
+.eyebrow::before {
+    content: "";
+
+    width: 34px;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--gold)
+        );
+
+    box-shadow: 0 0 12px var(--gold);
+}
+
+.logo-wrap {
+    width: clamp(120px, 13vw, 190px);
+    aspect-ratio: 1;
+
+    margin-bottom: clamp(18px, 2vw, 28px);
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid rgba(222, 185, 102, .45);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(166, 105, 33, .24),
+            rgba(25, 15, 8, .88) 68%
+        );
+
+    box-shadow:
+        0 0 0 8px rgba(209, 169, 85, .035),
+        0 0 38px rgba(209, 169, 85, .15),
+        inset 0 0 30px rgba(209, 169, 85, .12);
+
+    animation:
+        logoBreath 4s ease-in-out infinite;
+}
+
+.logo-wrap img {
+    width: 82%;
+    height: 72%;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 0 10px rgba(255, 209, 100, .30));
+
+    border-radius: 14px;
+}
+
+@keyframes logoBreath {
+    0%,100% {
+        transform: scale(1);
+        box-shadow:
+            0 0 0 8px rgba(209, 169, 85, .035),
+            0 0 38px rgba(209, 169, 85, .15),
+            inset 0 0 30px rgba(209, 169, 85, .12);
+    }
+
+    50% {
+        transform: scale(1.025);
+        box-shadow:
+            0 0 0 8px rgba(209, 169, 85, .055),
+            0 0 58px rgba(209, 169, 85, .24),
+            inset 0 0 36px rgba(209, 169, 85, .18);
+    }
+}
+
+.title-cn {
+    margin: 0;
+
+    font-family:
+        "Microsoft YaHei",
+        "Noto Serif CJK SC",
+        serif;
+
+    font-size: clamp(44px, 6.5vw, 88px);
+
+    line-height: .98;
+
+    font-weight: 700;
+
+    letter-spacing: .05em;
+
+    background:
+        linear-gradient(
+            110deg,
+            #80622f 0%,
+            #f6e5ac 23%,
+            #ad8741 47%,
+            #fff0b7 68%,
+            #745526 100%
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    text-shadow:
+        0 2px 20px rgba(196, 157, 76, .16);
+
+    animation:
+        titleIn 1.4s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes titleIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        filter: blur(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+.title-en {
+    margin-top: 15px;
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size: clamp(17px, 2vw, 25px);
+
+    letter-spacing:
+        clamp(.28em, 1vw, .55em);
+
+    color: #e8d19a;
+
+    text-shadow:
+        0 0 18px rgba(221, 184, 93, .25);
+}
+
+.subtitle {
+    margin-top: 18px;
+
+    max-width: 520px;
+
+    color: rgba(235, 216, 174, .62);
+
+    font-family:
+        "Consolas",
+        "SFMono-Regular",
+        monospace;
+
+    font-size: clamp(10px, 1vw, 13px);
+
+    letter-spacing: .08em;
+
+    line-height: 1.8;
+}
+
+/* =========================================================
+   PROGRESS
+   ========================================================= */
+
+.progress-area {
+    margin-top: clamp(24px, 4vh, 42px);
+
+    width: min(520px, 100%);
+}
+
+.progress-meta {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+
+    font-family: Consolas, monospace;
+
+    font-size: 10px;
+
+    letter-spacing: .15em;
+
+    color: rgba(239, 215, 166, .60);
+}
+
+.progress {
+    height: 4px;
+
+    overflow: hidden;
+
+    background:
+        rgba(218, 182, 96, .10);
+
+    border: 1px solid rgba(218, 182, 96, .14);
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7d5b27,
+            #f0d58e,
+            #fff2bd
+        );
+
+    box-shadow:
+        0 0 15px rgba(232, 193, 93, .8);
+
+    transition:
+        width .25s ease;
+}
+
+/* =========================================================
+   RIGHT TERMINAL
+   ========================================================= */
+
+.terminal {
+    position: relative;
+
+    min-width: 0;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(54, 32, 17, .86),
+            rgba(13, 11, 9, .90)
+        );
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.48),
+        0 0 55px rgba(167, 118, 49, .08),
+        inset 0 1px rgba(255,255,255,.05);
+
+    backdrop-filter: blur(16px);
+
+    animation:
+        terminalIn 1.2s .35s both;
+}
+
+@keyframes terminalIn {
+    from {
+        opacity: 0;
+        transform: translateX(35px);
+        filter: blur(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
+}
+
+.terminal-header {
+    min-height: 46px;
+
+    display: flex;
+    align-items: center;
+
+    padding:
+        0 15px;
+
+    border-bottom:
+        1px solid rgba(221, 184, 95, .14);
+
+    background:
+        rgba(255,255,255,.025);
+}
+
+.traffic {
+    display: flex;
+    gap: 7px;
+}
+
+.traffic span {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #8d7347;
+
+    box-shadow:
+        0 0 8px rgba(214, 180, 100, .3);
+}
+
+.terminal-name {
+    margin-left: 13px;
+
+    font-family: Consolas, monospace;
+
+    font-size: 10px;
+
+    letter-spacing: .15em;
+
+    color: rgba(242, 220, 174, .60);
+}
+
+.live {
+    margin-left: auto;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    font:
+        9px Consolas,
+        monospace;
+
+    color: var(--green);
+
+    letter-spacing: .12em;
+}
+
+.live::before {
+    content: "";
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: var(--green);
+
+    box-shadow:
+        0 0 9px var(--green);
+
+    animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: .25;
+    }
+}
+
+.terminal-body {
+    padding:
+        clamp(16px, 2vw, 25px);
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, .85fr)
+        minmax(0, 1.15fr);
+
+    gap: 22px;
+}
+
+/* =========================================================
+   LOG
+   ========================================================= */
+
+.log {
+    min-width: 0;
+
+    height: clamp(280px, 42vh, 430px);
+
+    overflow: hidden;
+
+    font:
+        clamp(9px, .8vw, 11px)
+        Consolas,
+        "SFMono-Regular",
+        monospace;
+
+    line-height: 1.72;
+
+    color: rgba(221, 211, 188, .72);
+
+    border-right:
+        1px solid rgba(219, 181, 94, .11);
+
+    padding-right: 20px;
+}
+
+.log-line {
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    animation:
+        logIn .35s ease both;
+}
+
+@keyframes logIn {
+    from {
+        opacity: 0;
+        transform: translateX(-7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.time {
+    color: rgba(213, 180, 106, .36);
+}
+
+.ok {
+    color: var(--green);
+}
+
+.warn {
+    color: #e8bd66;
+}
+
+.info {
+    color: var(--cyan);
+}
+
+.alert {
+    color: #ef8585;
+}
+
+.cmd {
+    color: var(--purple);
+}
+
+/* =========================================================
+   DATA
+   ========================================================= */
+
+.data {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.data-title {
+    margin-bottom: 12px;
+
+    color: rgba(230, 204, 151, .45);
+
+    font:
+        9px Consolas,
+        monospace;
+
+    letter-spacing: .22em;
+}
+
+.data-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 8px;
+}
+
+.data-item {
+    min-width: 0;
+
+    padding:
+        10px 11px;
+
+    border:
+        1px solid rgba(217, 181, 95, .11);
+
+    border-radius: 6px;
+
+    background:
+        rgba(255,255,255,.018);
+
+    transition:
+        border-color .25s,
+        background .25s;
+}
+
+.data-item:hover {
+    border-color:
+        rgba(225, 190, 102, .30);
+
+    background:
+        rgba(225, 190, 102, .045);
+}
+
+.data-key {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color:
+        rgba(230, 202, 148, .42);
+
+    font:
+        8px Consolas,
+        monospace;
+
+    letter-spacing: .14em;
+}
+
+.data-value {
+    display: block;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color:
+        rgba(243, 226, 188, .88);
+
+    font:
+        11px Consolas,
+        monospace;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-top: 16px;
+
+    padding-top: 14px;
+
+    border-top:
+        1px solid rgba(217, 181, 95, .10);
+
+    color:
+        rgba(235, 213, 170, .34);
+
+    font:
+        8px Consolas,
+        monospace;
+
+    letter-spacing: .12em;
+}
+
+.status {
+    color: var(--green);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    body {
+        overflow: auto;
+    }
+
+    .boot {
+        min-height: auto;
+
+        padding:
+            32px 0 38px;
+    }
+
+    .shell {
+        grid-template-columns: 1fr;
+
+        gap: 30px;
+    }
+
+    .brand {
+        text-align: center;
+    }
+
+    .eyebrow {
+        justify-content: center;
+    }
+
+    .logo-wrap {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .subtitle,
+    .progress-area {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .terminal-body {
+        grid-template-columns: 1fr;
+    }
+
+    .log {
+        height: 250px;
+
+        border-right: 0;
+
+        border-bottom:
+            1px solid rgba(219, 181, 94, .11);
+
+        padding-right: 0;
+        padding-bottom: 18px;
+    }
+}
+
+@media (max-width: 560px) {
+
+    .boot {
+        width: 94vw;
+
+        padding-top: 25px;
+    }
+
+    .shell {
+        gap: 24px;
+    }
+
+    .title-cn {
+        font-size: clamp(38px, 12vw, 58px);
+        letter-spacing: .03em;
+    }
+
+    .title-en {
+        font-size: 15px;
+        letter-spacing: .28em;
+    }
+
+    .subtitle {
+        font-size: 9px;
+    }
+
+    .terminal-body {
+        padding: 14px;
+
+        gap: 15px;
+    }
+
+    .data-grid {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 6px;
+    }
+
+    .data-item {
+        padding: 8px;
+    }
+
+    .data-value {
+        font-size: 9px;
+    }
+
+    .log {
+        height: 220px;
+
+        font-size: 8px;
+    }
+
+    .footer {
+        font-size: 7px;
+    }
+}
+
+@media (max-height: 700px) and (min-width: 901px) {
+
+    .boot {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .logo-wrap {
+        width: 78px;
+    }
+
+    .title-cn {
+        font-size: clamp(40px, 5vw, 68px);
+    }
+
+    .progress-area {
+        margin-top: 20px;
+    }
+
+    .log {
+        height: 300px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* =========================================================
+   B.RPC.CN / FULL-WIDTH BOTTOM CODE STREAM
+   ========================================================= */
+
+.rpc-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 9;
+
+    width: 100%;
+    padding: 18px 5vw 12px;
+
+    text-align: center;
+
+    color: #f1dc9a;
+    font: 700 clamp(22px, 3vw, 38px) Consolas, monospace;
+    letter-spacing: .22em;
+
+    text-shadow:
+        0 0 18px rgba(241,220,154,.25);
+
+    pointer-events: none;
+}
+
+.bottom-code {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 8;
+
+    width: 100%;
+    height: clamp(120px, 19vh, 190px);
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    padding: 10px 4vw 16px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(8,7,5,0),
+            rgba(8,7,5,.82) 22%,
+            rgba(8,7,5,.96)
+        );
+
+    border-top:
+        1px solid rgba(219,181,95,.16);
+
+    backdrop-filter: blur(3px);
+    pointer-events: auto;
+}
+
+.bottom-code::-webkit-scrollbar {
+    display: none;
+}
+
+.bottom-code-inner {
+    width: max-content;
+    min-width: 100%;
+
+    display: flex;
+    align-items: flex-end;
+    gap: 28px;
+
+    height: 100%;
+
+    color: rgba(230,214,180,.70);
+    font: clamp(9px, .85vw, 12px) Consolas, monospace;
+    line-height: 1.7;
+    white-space: pre;
+}
+
+.bottom-code-line {
+    flex: 0 0 auto;
+    min-width: 320px;
+
+    padding: 8px 14px;
+
+    border-left:
+        1px solid rgba(219,181,95,.18);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(219,181,95,.045),
+            transparent
+        );
+
+    text-shadow:
+        0 0 8px rgba(219,181,95,.10);
+}
+
+.bottom-code-line .tag {
+    color: #d7b66a;
+}
+
+.bottom-code-line .ok {
+    color: #65d49a;
+}
+
+.bottom-code-line .info {
+    color: #66d9ef;
+}
+
+.bottom-code-line .warn {
+    color: #e8bd66;
+}
+
+.bottom-code-line .alert {
+    color: #e87575;
+}
+
+/* =========================================================
+   APPLE GATE / CENTER MODAL
+   ========================================================= */
+
+.apple-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(75,32,18,.25),
+            rgba(0,0,0,.82) 60%,
+            rgba(0,0,0,.94)
+        );
+
+    backdrop-filter: blur(9px);
+}
+
+.apple-gate.active {
+    display: flex;
+}
+
+.apple-dialog {
+    width: min(720px, 92vw);
+
+    padding: clamp(30px, 5vw, 58px);
+
+    border:
+        1px solid rgba(232,117,117,.52);
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(45,22,15,.97),
+            rgba(12,9,7,.98)
+        );
+
+    box-shadow:
+        0 35px 120px rgba(0,0,0,.72),
+        0 0 70px rgba(232,117,117,.14),
+        inset 0 1px rgba(255,255,255,.05);
+
+    text-align: center;
+
+    animation:
+        appleDialogIn .55s cubic-bezier(.2,.8,.2,1) both;
+}
+
+@keyframes appleDialogIn {
+    from {
+        opacity: 0;
+        transform: scale(.92) translateY(18px);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0);
+    }
+}
+
+.apple-icon {
+    font-size: clamp(48px, 7vw, 82px);
+    line-height: 1;
+    margin-bottom: 18px;
+
+    filter:
+        drop-shadow(0 0 20px rgba(232,117,117,.25));
+}
+
+.apple-warning-title {
+    color: #f0c7c7;
+
+    font: 800 clamp(25px, 4vw, 44px)
+        "Microsoft YaHei", sans-serif;
+
+    letter-spacing: .06em;
+}
+
+.apple-warning-subtitle {
+    margin-top: 12px;
+
+    color: #e87575;
+
+    font: 700 clamp(13px, 1.7vw, 18px)
+        Consolas, monospace;
+
+    letter-spacing: .12em;
+}
+
+.apple-warning-copy {
+    margin: 20px auto 24px;
+
+    max-width: 590px;
+
+    color: rgba(241,220,206,.72);
+
+    font: 14px/1.9
+        "Microsoft YaHei", sans-serif;
+}
+
+.apple-input {
+    width: 100%;
+
+    padding: 15px 17px;
+
+    border:
+        1px solid rgba(232,117,117,.35);
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background:
+        rgba(0,0,0,.35);
+
+    color: #f3e2c0;
+
+    font: 15px Consolas, "Microsoft YaHei", monospace;
+
+    text-align: center;
+
+    transition:
+        border-color .2s,
+        box-shadow .2s;
+}
+
+.apple-input:focus {
+    border-color: rgba(232,117,117,.75);
+
+    box-shadow:
+        0 0 24px rgba(232,117,117,.12);
+}
+
+.apple-input::placeholder {
+    color: rgba(239,211,190,.35);
+}
+
+.apple-submit {
+    margin-top: 14px;
+
+    width: 100%;
+
+    padding: 13px 18px;
+
+    border:
+        1px solid rgba(219,181,95,.35);
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(121,93,45,.45),
+            rgba(219,181,95,.18)
+        );
+
+    color: #f1dc9a;
+
+    font: 700 12px Consolas, monospace;
+
+    letter-spacing: .18em;
+
+    cursor: pointer;
+}
+
+.apple-submit:disabled {
+    opacity: .45;
+    cursor: wait;
+}
+
+.apple-result {
+    min-height: 24px;
+
+    margin-top: 15px;
+
+    color: rgba(241,220,206,.65);
+
+    font: 12px/1.7 Consolas, "Microsoft YaHei", monospace;
+}
+
+@media (max-width: 900px) {
+    .rpc-header {
+        padding-top: 10px;
+    }
+
+    .bottom-code {
+        height: 145px;
+    }
+
+    .bottom-code-inner {
+        gap: 18px;
+    }
+
+    .bottom-code-line {
+        min-width: 270px;
+    }
+}
+
+</style>
 </head>
+
 <body>
-  <p>正在跳转到 <a href="https://htcb-12c7.github.io/htgov/">黑铁工作室主页</a>...</p>
+
+<canvas id="matrix"></canvas>
+
+<div class="noise"></div>
+<div class="vignette"></div>
+
+
+<div class="rpc-header">B.RPC.CN</div>
+
+<div class="bottom-code" id="bottomCode" aria-label="Runtime code stream">
+    <div class="bottom-code-inner" id="bottomCodeInner"></div>
+</div>
+
+<div class="apple-gate" id="appleGate" aria-modal="true" role="dialog">
+    <div class="apple-dialog">
+        <div class="apple-icon" aria-hidden="true"></div>
+
+        <div class="apple-warning-title">
+            检测到老爷总叫果杂
+        </div>
+
+        <div class="apple-warning-subtitle">
+            ⚠ APPLE PLATFORM DETECTED
+        </div>
+
+        <div class="apple-warning-copy">
+            检测到 Apple 手机或电脑环境。<br>
+            请先输入一句话表达“我受着”，由 DeepSeek API 验证后才能继续加载。
+        </div>
+
+        <input
+            id="appleInput"
+            class="apple-input"
+            type="text"
+            maxlength="160"
+            autocomplete="off"
+            placeholder="例如：老爷总叫果咋给我掉，我错了"
+        >
+
+        <button
+            id="appleSubmit"
+            class="apple-submit"
+            type="button"
+        >
+            DEEPSEEK VERIFY // CONTINUE
+        </button>
+
+        <div
+            id="appleResult"
+            class="apple-result"
+            aria-live="polite"
+        ></div>
+    </div>
+</div>
+
+<main class="boot">
+
+    <section class="shell">
+
+        <!-- =================================================
+             LEFT
+             ================================================= -->
+
+        <section class="brand">
+
+            <div class="eyebrow">
+                HT STUDIO // SYSTEM BOOT
+            </div>
+
+            <div class="logo-wrap">
+
+                <!-- 与 index.html 放在同一目录 -->
+                <img
+                    src="HTgov图标V21500x1500.png"
+                    alt="HT STUDIO"
+                    onerror="this.style.opacity='0'"
+                >
+
+            </div>
+
+            <h1 class="title-cn">
+                黑铁工作室
+            </h1>
+
+            <div class="title-en">
+                HT STUDIO
+            </div>
+
+            <div class="subtitle" id="subtitle">
+                INITIALIZING LOCAL RUNTIME ENVIRONMENT...
+            </div>
+
+            <div class="progress-area">
+
+                <div class="progress-meta">
+
+                    <span id="progressLabel">
+                        INITIALIZING
+                    </span>
+
+                    <span id="progressPercent">
+                        0%
+                    </span>
+
+                </div>
+
+                <div class="progress">
+
+                    <div
+                        class="progress-bar"
+                        id="progressBar">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             RIGHT TERMINAL
+             ================================================= -->
+
+        <section class="terminal">
+
+            <header class="terminal-header">
+
+                <div class="traffic">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+                <div class="terminal-name">
+                    ht-studio://runtime/diagnostics
+                </div>
+
+                <div class="live">
+                    LOCAL
+                </div>
+
+            </header>
+
+
+            <div class="terminal-body">
+
+                <!-- LOG -->
+
+                <div
+                    class="log"
+                    id="log">
+                </div>
+
+
+                <!-- DATA -->
+
+                <div class="data">
+
+                    <div class="data-title">
+                        RUNTIME TELEMETRY // LOCAL ONLY
+                    </div>
+
+                    <div
+                        class="data-grid"
+                        id="dataGrid">
+                    </div>
+
+                    <div class="footer">
+
+                        <span>
+                            HT STUDIO / BLACK IRON WORKS
+                        </span>
+
+                        <span
+                            class="status"
+                            id="finalStatus">
+                            BOOTING
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </section>
+
+</main>
+
+
+<script>
+/* ============================================================
+   HT STUDIO // LOCAL RUNTIME DIAGNOSTICS
+   ------------------------------------------------------------
+   Everything below runs locally in this browser tab.
+
+   No:
+   - external library
+   - analytics
+   - telemetry endpoint
+   - IP lookup service
+   - camera access
+   - microphone access
+   - geolocation request
+   - device upload
+
+   Browser APIs intentionally expose only limited information.
+   ============================================================ */
+
+
+/* ============================================================
+   01. MATRIX / CODE RAIN
+   ============================================================ */
+
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+let width = 0;
+let height = 0;
+let columns = [];
+let drops = [];
+
+const matrixCodeLines = [
+    "B.RPC.CN // SYSTEM BOOT",
+    "runtime kernel mounted",
+    "browser capability probe",
+    "user-agent interface ........ OK",
+    "language subsystem .......... OK",
+    "display matrix detected",
+    "device pixel ratio verified",
+    "logical processors detected",
+    "device memory capability",
+    "WebGL context ............... OK",
+    "graphics surface ............ detected",
+    "network interface ........... ONLINE",
+    "battery interface ........... probing",
+    "cookies ..................... ENABLED",
+    "automation flag ............. NORMAL",
+    "runtime integrity ........... VERIFIED",
+    "FINALIZING .................. 100%",
+    "HT STUDIO runtime ........... READY"
+];
+
+let matrixStage = 0;
+
+const codeChars =
+    matrixCodeLines.join(" | ");
+
+const codeColors = [
+    "rgba(219,181,95,.42)",
+    "rgba(102,217,239,.35)",
+    "rgba(101,212,154,.34)",
+    "rgba(181,140,255,.32)",
+    "rgba(232,117,117,.30)",
+    "rgba(255,232,165,.38)"
+];
+
+function resizeMatrix() {
+
+    const dpr =
+        Math.min(window.devicePixelRatio || 1, 2);
+
+    width = window.innerWidth;
+    height = window.innerHeight;
+
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+    const fontSize =
+        Math.max(
+            12,
+            Math.min(
+                18,
+                width / 90
+            )
+        );
+
+    const count =
+        Math.ceil(width / fontSize);
+
+    columns = new Array(count)
+        .fill(0)
+        .map(() => Math.random() * -100);
+
+    drops = new Array(count)
+        .fill(0)
+        .map(() => ({
+            y: Math.random() * height,
+            speed: .5 + Math.random() * 1.8,
+            length: 8 + Math.random() * 25,
+            color:
+                codeColors[
+                    Math.floor(
+                        Math.random() *
+                        codeColors.length
+                    )
+                ]
+        }));
+}
+
+resizeMatrix();
+
+window.addEventListener(
+    "resize",
+    resizeMatrix
+);
+
+
+function randomChar() {
+
+    const line =
+        matrixCodeLines[
+            Math.min(
+                matrixStage,
+                matrixCodeLines.length - 1
+            )
+        ];
+
+    return line[
+        Math.floor(
+            Math.random() * line.length
+        )
+    ] || " ";
+}
+
+
+function drawMatrix() {
+
+    ctx.fillStyle =
+        "rgba(5,4,3,.105)";
+
+    ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+    const fontSize =
+        Math.max(
+            12,
+            Math.min(
+                18,
+                width / 90
+            )
+        );
+
+    ctx.font =
+        fontSize +
+        "px Consolas, monospace";
+
+    for (
+        let i = 0;
+        i < drops.length;
+        i++
+    ) {
+
+        const x =
+            i * fontSize;
+
+        const d =
+            drops[i];
+
+        const y =
+            d.y;
+
+        const char =
+            randomChar();
+
+        const alpha =
+            .18 +
+            Math.random() * .5;
+
+        ctx.fillStyle =
+            d.color.replace(
+                /[\d.]+\)$/,
+
+                alpha + ")"
+            );
+
+        ctx.fillText(
+            char,
+            x,
+            y
+        );
+
+        d.y +=
+            fontSize *
+            d.speed;
+
+        if (
+            d.y >
+            height +
+            d.length *
+            fontSize
+        ) {
+
+            d.y =
+                -Math.random() *
+                height *
+                .4;
+
+            d.speed =
+                .5 +
+                Math.random() * 1.8;
+
+            d.length =
+                8 +
+                Math.random() * 25;
+
+            d.color =
+                codeColors[
+                    Math.floor(
+                        Math.random() *
+                        codeColors.length
+                    )
+                ];
+        }
+    }
+
+    requestAnimationFrame(
+        drawMatrix
+    );
+}
+
+drawMatrix();
+
+
+/* ============================================================
+   02. TERMINAL ENGINE
+   ============================================================ */
+
+const logBox =
+    document.getElementById("log");
+
+const progressBar =
+    document.getElementById("progressBar");
+
+const progressPercent =
+    document.getElementById("progressPercent");
+
+const progressLabel =
+    document.getElementById("progressLabel");
+
+const subtitle =
+    document.getElementById("subtitle");
+
+const finalStatus =
+    document.getElementById("finalStatus");
+
+
+function timestamp() {
+
+    const now =
+        new Date();
+
+    return now
+        .toLocaleTimeString(
+            "en-US",
+            {
+                hour12: false
+            }
+        );
+}
+
+
+function log(
+    message,
+    type = "normal"
+) {
+
+    const line =
+        document.createElement("div");
+
+    line.className =
+        "log-line";
+
+    const colors = {
+        ok: "ok",
+        warn: "warn",
+        info: "info",
+        alert: "alert",
+        cmd: "cmd"
+    };
+
+    const cls =
+        colors[type] || "";
+
+    line.innerHTML = `
+        <span class="time">
+            [${timestamp()}]
+        </span>
+        <span class="${cls}">
+            ${message}
+        </span>
+    `;
+
+    logBox.appendChild(line);
+
+    while (
+        logBox.children.length >
+        15
+    ) {
+
+        logBox.removeChild(
+            logBox.firstChild
+        );
+    }
+
+    logBox.scrollTop =
+        logBox.scrollHeight;
+}
+
+
+function sleep(ms) {
+
+    return new Promise(
+        resolve =>
+            setTimeout(
+                resolve,
+                ms
+            )
+    );
+}
+
+
+function setProgress(
+    value,
+    label
+) {
+
+    value =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                value
+            )
+        );
+
+    progressBar.style.width =
+        value + "%";
+
+    progressPercent.textContent =
+        Math.round(value) + "%";
+
+    progressLabel.textContent =
+        label;
+}
+
+
+/* ============================================================
+   03. SAFE VALUE HELPERS
+   ============================================================ */
+
+function safe(
+    value,
+    fallback = "UNAVAILABLE"
+) {
+
+    return (
+        value === undefined ||
+        value === null ||
+        value === ""
+    )
+        ? fallback
+        : String(value);
+}
+
+
+function formatBytes(
+    gb
+) {
+
+    if (
+        typeof gb !== "number"
+    ) {
+
+        return "UNAVAILABLE";
+    }
+
+    return "~" +
+        gb +
+        " GB";
+}
+
+
+function detectBrowser() {
+
+    const ua =
+        navigator.userAgent;
+
+    if (
+        /Edg\//i.test(ua)
+    ) {
+
+        return "Microsoft Edge";
+    }
+
+    if (
+        /Chrome\//i.test(ua)
+    ) {
+
+        return "Google Chrome";
+    }
+
+    if (
+        /Firefox\//i.test(ua)
+    ) {
+
+        return "Mozilla Firefox";
+    }
+
+    if (
+        /Safari\//i.test(ua) &&
+        !/Chrome/i.test(ua)
+    ) {
+
+        return "Apple Safari";
+    }
+
+    return "Unknown Browser";
+}
+
+
+function detectOS() {
+
+    const ua =
+        navigator.userAgent;
+
+    if (/Windows/i.test(ua))
+        return "Windows";
+
+    if (/Mac OS X/i.test(ua))
+        return "macOS";
+
+    if (/Android/i.test(ua))
+        return "Android";
+
+    if (/iPhone|iPad|iPod/i.test(ua))
+        return "iOS / iPadOS";
+
+    if (/Linux/i.test(ua))
+        return "Linux";
+
+    return "Unknown OS";
+}
+
+
+/* ============================================================
+   04. WEBGL CAPABILITY
+   ============================================================ */
+
+function getWebGLInfo() {
+
+    try {
+
+        const gl =
+            document
+                .createElement("canvas")
+                .getContext("webgl");
+
+        if (!gl) {
+
+            return {
+                supported: false,
+                renderer: "UNAVAILABLE"
+            };
+        }
+
+        const renderer =
+            gl.getParameter(
+                gl.RENDERER
+            );
+
+        const version =
+            gl.getParameter(
+                gl.VERSION
+            );
+
+        return {
+            supported: true,
+            renderer:
+                renderer || "UNKNOWN",
+            version:
+                version || "UNKNOWN"
+        };
+
+    } catch {
+
+        return {
+            supported: false,
+            renderer: "BLOCKED"
+        };
+    }
+}
+
+
+/* ============================================================
+   05. REAL BROWSER DATA
+   ============================================================ */
+
+const state = {
+
+    os: detectOS(),
+
+    browser: detectBrowser(),
+
+    screen:
+        `${screen.width} × ${screen.height}`,
+
+    viewport:
+        `${window.innerWidth} × ${window.innerHeight}`,
+
+    dpr:
+        window.devicePixelRatio
+            ? window.devicePixelRatio.toFixed(2)
+            : "1",
+
+    language:
+        safe(
+            navigator.language
+        ),
+
+    languages:
+        Array.isArray(
+            navigator.languages
+        )
+            ? navigator.languages
+                .slice(0, 4)
+                .join(", ")
+            : "UNAVAILABLE",
+
+    timezone:
+        (() => {
+
+            try {
+
+                return Intl
+                    .DateTimeFormat()
+                    .resolvedOptions()
+                    .timeZone;
+
+            } catch {
+
+                return "UNAVAILABLE";
+            }
+
+        })(),
+
+    cores:
+        safe(
+            navigator.hardwareConcurrency
+        ),
+
+    memory:
+        formatBytes(
+            navigator.deviceMemory
+        ),
+
+    platform:
+        safe(
+            navigator.platform
+        ),
+
+    touch:
+        safe(
+            navigator.maxTouchPoints,
+            "0"
+        ),
+
+    online:
+        navigator.onLine
+            ? "ONLINE"
+            : "OFFLINE",
+
+    cookies:
+        navigator.cookieEnabled
+            ? "ENABLED"
+            : "DISABLED",
+
+    webdriver:
+        navigator.webdriver
+            ? "AUTOMATION"
+            : "NORMAL",
+
+    doNotTrack:
+        safe(
+            navigator.doNotTrack,
+            "NOT SET"
+        ),
+
+    connection:
+        "UNAVAILABLE",
+
+    downlink:
+        "UNAVAILABLE",
+
+    rtt:
+        "UNAVAILABLE",
+
+    saveData:
+        "UNKNOWN",
+
+    battery:
+        "UNAVAILABLE",
+
+    webgl:
+        "UNKNOWN",
+
+    gpu:
+        "UNAVAILABLE"
+};
+
+
+/* ============================================================
+   NETWORK API
+   ============================================================ */
+
+function readNetwork() {
+
+    const c =
+        navigator.connection ||
+        navigator.mozConnection ||
+        navigator.webkitConnection;
+
+    if (!c) {
+
+        return;
+    }
+
+    state.connection =
+        safe(
+            c.effectiveType ||
+            c.type
+        );
+
+    if (
+        typeof c.downlink ===
+        "number"
+    ) {
+
+        state.downlink =
+            c.downlink +
+            " Mbps";
+    }
+
+    if (
+        typeof c.rtt ===
+        "number"
+    ) {
+
+        state.rtt =
+            c.rtt +
+            " ms";
+    }
+
+    if (
+        typeof c.saveData ===
+        "boolean"
+    ) {
+
+        state.saveData =
+            c.saveData
+                ? "ON"
+                : "OFF";
+    }
+}
+
+readNetwork();
+
+
+/* ============================================================
+   BATTERY API
+   ============================================================ */
+
+async function readBattery() {
+
+    if (
+        typeof navigator.getBattery !==
+        "function"
+    ) {
+
+        return;
+    }
+
+    try {
+
+        const battery =
+            await navigator.getBattery();
+
+        const level =
+            Math.round(
+                battery.level * 100
+            );
+
+        state.battery =
+            level +
+            "% " +
+            (
+                battery.charging
+                    ? "CHARGING"
+                    : "DISCHARGING"
+            );
+
+    } catch {
+
+        state.battery =
+            "BLOCKED / UNAVAILABLE";
+    }
+}
+
+
+/* ============================================================
+   WEBGL
+   ============================================================ */
+
+function readGraphics() {
+
+    const info =
+        getWebGLInfo();
+
+    if (!info.supported) {
+
+        state.webgl =
+            "UNAVAILABLE";
+
+        return;
+    }
+
+    state.webgl =
+        "SUPPORTED";
+
+    state.gpu =
+        info.renderer;
+}
+
+
+/* ============================================================
+   DATA PANEL
+   ============================================================ */
+
+function renderData() {
+
+    const grid =
+        document.getElementById(
+            "dataGrid"
+        );
+
+    grid.innerHTML = "";
+
+    const entries = [
+
+        ["OS", state.os],
+
+        ["BROWSER", state.browser],
+
+        ["DISPLAY", state.screen],
+
+        ["VIEWPORT", state.viewport],
+
+        ["PIXEL RATIO", state.dpr],
+
+        ["LANGUAGE", state.language],
+
+        ["TIMEZONE", state.timezone],
+
+        ["CPU THREADS", state.cores],
+
+        ["MEMORY", state.memory],
+
+        ["PLATFORM", state.platform],
+
+        ["TOUCH", state.touch],
+
+        ["NETWORK", state.connection],
+
+        ["DOWNLINK", state.downlink],
+
+        ["LATENCY", state.rtt],
+
+        ["BATTERY", state.battery],
+
+        ["WEBGL", state.webgl],
+
+        ["GPU SURFACE", state.gpu],
+
+        ["COOKIES", state.cookies],
+
+        ["AUTOMATION", state.webdriver],
+
+        ["DNT", state.doNotTrack]
+
+    ];
+
+    entries.forEach(
+        ([key, value]) => {
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+            item.className =
+                "data-item";
+
+            item.innerHTML = `
+                <span class="data-key">
+                    ${key}
+                </span>
+
+                <span
+                    class="data-value"
+                    title="${String(value)
+                        .replace(/"/g, "&quot;")}"
+                >
+                    ${value}
+                </span>
+            `;
+
+            grid.appendChild(item);
+        }
+    );
+}
+
+
+/* ============================================================
+   06. BOOT SEQUENCE
+   ============================================================ */
+
+async function bootSequence() {
+
+    log(
+        "$ ht-studio --initialize --local",
+        "cmd"
+    );
+
+    await sleep(380);
+
+    setProgress(
+        7,
+        "LOADING RUNTIME"
+    );
+
+    log(
+        "runtime kernel mounted",
+        "ok"
+    );
+
+    await sleep(300);
+
+    log(
+        "executing browser capability probe...",
+        "info"
+    );
+
+    await sleep(280);
+
+    setProgress(
+        15,
+        "BROWSER ENVIRONMENT"
+    );
+
+    log(
+        "user-agent interface ........ OK",
+        "ok"
+    );
+
+    log(
+        "language subsystem .......... OK",
+        "ok"
+    );
+
+    await sleep(350);
+
+    setProgress(
+        27,
+        "DISPLAY SUBSYSTEM"
+    );
+
+    log(
+        `display matrix ${screen.width}×${screen.height} detected`,
+        "info"
+    );
+
+    log(
+        `viewport ${window.innerWidth}×${window.innerHeight} detected`,
+        "ok"
+    );
+
+    log(
+        `device pixel ratio ${state.dpr}`,
+        "info"
+    );
+
+    await sleep(400);
+
+    setProgress(
+        40,
+        "HARDWARE CAPABILITY"
+    );
+
+    log(
+        `logical processors: ${state.cores}`,
+        "ok"
+    );
+
+    if (
+        state.memory !==
+        "UNAVAILABLE"
+    ) {
+
+        log(
+            `approx. device memory: ${state.memory}`,
+            "ok"
+        );
+
+    } else {
+
+        log(
+            "device memory ............. restricted",
+            "warn"
+        );
+    }
+
+    log(
+        `touch points: ${state.touch}`,
+        "info"
+    );
+
+    await sleep(380);
+
+    setProgress(
+        53,
+        "GRAPHICS INTERFACE"
+    );
+
+    readGraphics();
+
+    if (
+        state.webgl ===
+        "SUPPORTED"
+    ) {
+
+        log(
+            "WebGL context .............. OK",
+            "ok"
+        );
+
+        log(
+            "graphics surface ........... detected",
+            "info"
+        );
+
+    } else {
+
+        log(
+            "WebGL context .............. unavailable",
+            "warn"
+        );
+    }
+
+    await sleep(350);
+
+    setProgress(
+        65,
+        "NETWORK INTERFACE"
+    );
+
+    readNetwork();
+
+    log(
+        `connection state: ${navigator.onLine ? "ONLINE" : "OFFLINE"}`,
+        navigator.onLine
+            ? "ok"
+            : "alert"
+    );
+
+    if (
+        state.connection !==
+        "UNAVAILABLE"
+    ) {
+
+        log(
+            `effective network: ${state.connection}`,
+            "info"
+        );
+
+        log(
+            `estimated RTT: ${state.rtt}`,
+            "info"
+        );
+
+    } else {
+
+        log(
+            "Network Information API restricted",
+            "warn"
+        );
+    }
+
+    await sleep(400);
+
+    setProgress(
+        76,
+        "POWER SUBSYSTEM"
+    );
+
+    await readBattery();
+
+    if (
+        state.battery !==
+        "UNAVAILABLE"
+    ) {
+
+        log(
+            `battery interface: ${state.battery}`,
+            "ok"
+        );
+
+    } else {
+
+        log(
+            "battery interface .......... unavailable",
+            "warn"
+        );
+    }
+
+    await sleep(350);
+
+    setProgress(
+        85,
+        "RUNTIME INTEGRITY"
+    );
+
+    log(
+        `cookies: ${state.cookies}`,
+        "info"
+    );
+
+    log(
+        `automation flag: ${state.webdriver}`,
+        state.webdriver === "NORMAL"
+            ? "ok"
+            : "warn"
+    );
+
+    log(
+        `do-not-track: ${state.doNotTrack}`,
+        "info"
+    );
+
+    await sleep(500);
+
+    setProgress(
+        93,
+        "FINALIZING"
+    );
+
+    log(
+        "normalizing runtime telemetry...",
+        "cmd"
+    );
+
+    await sleep(400);
+
+    renderData();
+
+    setProgress(
+        100,
+        "SYSTEM READY"
+    );
+
+    subtitle.textContent =
+        "LOCAL RUNTIME INITIALIZED // ENVIRONMENT VERIFIED";
+
+    finalStatus.textContent =
+        "READY";
+
+    finalStatus.style.color =
+        "var(--green)";
+
+    log(
+        "diagnostic sequence complete",
+        "ok"
+    );
+
+    await sleep(150);
+
+    log(
+        "HT STUDIO runtime .......... READY",
+        "ok"
+    );
+
+    log(
+        "welcome to BLACK IRON WORKS.",
+        "cmd"
+    );
+
+    window.dispatchEvent(
+        new Event("ht-studio-ready")
+    );
+}
+
+
+/* ============================================================
+   07. LIVE NETWORK STATE
+   ============================================================ */
+
+window.addEventListener(
+    "online",
+    () => {
+
+        state.online =
+            "ONLINE";
+
+        log(
+            "network interface restored",
+            "ok"
+        );
+
+        renderData();
+    }
+);
+
+window.addEventListener(
+    "offline",
+    () => {
+
+        state.online =
+            "OFFLINE";
+
+        log(
+            "network interface lost",
+            "alert"
+        );
+
+        renderData();
+    }
+);
+
+
+/* ============================================================
+   08. LIVE VIEWPORT MONITOR
+   ============================================================ */
+
+window.addEventListener(
+    "resize",
+    () => {
+
+        state.viewport =
+            `${window.innerWidth} × ${window.innerHeight}`;
+
+        const viewportEntry =
+            [...document.querySelectorAll(
+                ".data-item"
+            )]
+            .find(
+                el =>
+                    el.querySelector(
+                        ".data-key"
+                    )?.textContent ===
+                    "VIEWPORT"
+            );
+
+        if (viewportEntry) {
+
+            viewportEntry
+                .querySelector(
+                    ".data-value"
+                )
+                .textContent =
+                    state.viewport;
+        }
+    }
+);
+
+
+
+/* ============================================================
+   09. B.RPC.CN BOTTOM CODE STREAM
+   ============================================================ */
+
+const bottomCodeInner =
+    document.getElementById("bottomCodeInner");
+
+function renderBottomCode() {
+
+    if (!bottomCodeInner) return;
+
+    bottomCodeInner.innerHTML = "";
+
+    matrixCodeLines.forEach(
+        (line, index) => {
+
+            const block =
+                document.createElement("div");
+
+            block.className =
+                "bottom-code-line";
+
+            const tag =
+                index === matrixCodeLines.length - 1
+                    ? "READY"
+                    : `STAGE ${String(index + 1).padStart(2, "0")}`;
+
+            block.innerHTML = `
+                <span class="tag">[${tag}]</span>
+                <br>
+                ${line}
+            `;
+
+            bottomCodeInner.appendChild(block);
+        }
+    );
+}
+
+renderBottomCode();
+
+
+/* ============================================================
+   10. APPLE DETECTION + DEEPSEEK GATE
+   ============================================================ */
+
+function detectAppleDevice() {
+
+    const ua =
+        String(
+            navigator.userAgent || ""
+        ).toLowerCase();
+
+    const platform =
+        String(
+            navigator.platform || ""
+        ).toLowerCase();
+
+    const isAppleUA =
+        /iphone|ipad|ipod|macintosh|mac os x/.test(ua);
+
+    const isApplePlatform =
+        platform.startsWith("mac") ||
+        platform === "iphone" ||
+        platform === "ipad" ||
+        platform === "ipod";
+
+    // iPadOS desktop mode can identify itself as MacIntel.
+    const isIPadDesktopMode =
+        platform === "macintel" &&
+        Number(
+            navigator.maxTouchPoints || 0
+        ) > 1;
+
+    return (
+        isAppleUA ||
+        isApplePlatform ||
+        isIPadDesktopMode
+    );
+}
+
+function setAppleGateVisible(visible) {
+
+    const gate =
+        document.getElementById("appleGate");
+
+    if (!gate) return;
+
+    gate.classList.toggle(
+        "active",
+        visible
+    );
+}
+
+function appleVerificationPrompt() {
+
+    return `
+You are a strict access verifier for a fictional website.
+The visitor has been detected on an Apple phone or computer.
+Judge ONLY whether the visitor's submitted Chinese sentence is
+a sincere, explicit expression equivalent in meaning to:
+“我受着 / 老爷总叫果咋给我掉，我错了”
+It may use different wording or language.
+Return JSON only:
+{"pass":true}
+or
+{"pass":false}
+Do not explain.
+`;
+}
+
+async function verifyWithDeepSeek(text) {
+
+    /*
+      IMPORTANT:
+      Put the DeepSeek API key here only for testing.
+      A browser-exposed API key can be copied by visitors.
+      For a public GitHub Pages site, move this request to
+      your own server / serverless endpoint before production.
+    */
+    const apiKey =
+        "YOUR_DEEPSEEK_API_KEY_HERE";
+
+    if (
+        !apiKey ||
+        apiKey ===
+        "YOUR_DEEPSEEK_API_KEY_HERE"
+    ) {
+        throw new Error(
+            "DEEPSEEK API KEY NOT CONFIGURED"
+        );
+    }
+
+    const response =
+        await fetch(
+            "https://api.deepseek.com/chat/completions",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json",
+
+                    "Authorization":
+                        "Bearer " + apiKey
+                },
+
+                body: JSON.stringify({
+                    model: "deepseek-flash",
+
+                    messages: [
+                        {
+                            role: "system",
+                            content:
+                                appleVerificationPrompt()
+                        },
+
+                        {
+                            role: "user",
+                            content:
+                                text
+                        }
+                    ],
+
+                    response_format: {
+                        type: "json_object"
+                    },
+
+                    max_tokens: 40,
+
+                    temperature: 0
+                })
+            }
+        );
+
+    if (!response.ok) {
+
+        throw new Error(
+            "DEEPSEEK HTTP " +
+            response.status
+        );
+    }
+
+    const data =
+        await response.json();
+
+    const content =
+        data?.choices?.[0]?.message?.content;
+
+    if (!content) {
+
+        throw new Error(
+            "DEEPSEEK EMPTY RESPONSE"
+        );
+    }
+
+    const result =
+        JSON.parse(content);
+
+    return result.pass === true;
+}
+
+function initializeAppleGate() {
+
+    if (!detectAppleDevice()) {
+        return;
+    }
+
+    setAppleGateVisible(true);
+
+    const input =
+        document.getElementById(
+            "appleInput"
+        );
+
+    const submit =
+        document.getElementById(
+            "appleSubmit"
+        );
+
+    const result =
+        document.getElementById(
+            "appleResult"
+        );
+
+    async function submitVerification() {
+
+        const text =
+            input.value.trim();
+
+        if (!text) {
+
+            result.textContent =
+                "请输入一句话后再验证。";
+
+            return;
+        }
+
+        submit.disabled = true;
+
+        result.textContent =
+            "正在请求 DeepSeek 验证……";
+
+        try {
+
+            const passed =
+                await verifyWithDeepSeek(
+                    text
+                );
+
+            if (!passed) {
+
+                result.textContent =
+                    "验证未通过，请换一句表达后重试。";
+
+                submit.disabled = false;
+
+                input.focus();
+
+                return;
+            }
+
+            result.textContent =
+                "验证通过。继续加载系统……";
+
+            setAppleGateVisible(false);
+
+            document.body.dataset.appleVerified =
+                "true";
+
+            bootSequence();
+
+        } catch (error) {
+
+            console.error(error);
+
+            result.textContent =
+                "DeepSeek 验证不可用，请检查 API Key / 接口配置。";
+
+            submit.disabled = false;
+        }
+    }
+
+    submit.addEventListener(
+        "click",
+        submitVerification
+    );
+
+    input.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                "Enter"
+            ) {
+                submitVerification();
+            }
+        }
+    );
+}
+
+
+/* ============================================================
+   11. START
+   ============================================================ */
+
+if (detectAppleDevice()) {
+
+    initializeAppleGate();
+
+} else {
+
+    bootSequence();
+}
+
+
+/* ============================================================
+   12. REDIRECT AFTER READY
+   ============================================================ */
+
+window.addEventListener(
+    "ht-studio-ready",
+    async () => {
+
+        await sleep(900);
+
+        window.location.replace(
+            "https://bhtc.me/"
+        );
+    }
+);
+
+
+/* ============================================================
+   09. START
+   ============================================================ */
+
+/* bootSequence is started by the gate above. */
+
+
+/*
+setTimeout(() => {
+
+    window.location.href =
+        "https://bhtc.me/";
+
+}, 11000);
+*/
+
+</script>
+
 </body>
 </html>
